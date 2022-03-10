@@ -16,7 +16,8 @@ data class CoinDetailDto(
     val id: String,
     @SerializedName("is_active")
     val isActive: Boolean,
-    val is_new: Boolean,
+    @SerializedName("is_new")
+    val isNew: Boolean,
     @SerializedName("last_data_at")
     val lastDataAt: String,
     val links: Links,
@@ -40,7 +41,6 @@ data class CoinDetailDto(
     val whitepaper: Whitepaper
 )
 
-// mapper function
 fun CoinDetailDto.toCoinDetail(): CoinDetail {
     return CoinDetail(
         coinId = id,
