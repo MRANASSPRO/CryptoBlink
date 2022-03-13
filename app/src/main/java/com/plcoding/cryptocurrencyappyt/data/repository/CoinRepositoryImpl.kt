@@ -3,6 +3,7 @@ package com.plcoding.cryptocurrencyappyt.data.repository
 import com.plcoding.cryptocurrencyappyt.data.remote.CoinPaprikaApi
 import com.plcoding.cryptocurrencyappyt.data.remote.dto.CoinDetailDto
 import com.plcoding.cryptocurrencyappyt.data.remote.dto.CoinDto
+import com.plcoding.cryptocurrencyappyt.data.remote.dto.CoinPriceDto
 import com.plcoding.cryptocurrencyappyt.domain.repository.CoinRepository
 import javax.inject.Inject
 
@@ -16,5 +17,13 @@ class CoinRepositoryImpl @Inject constructor(
 
     override suspend fun getCoinById(coinId: String): CoinDetailDto {
         return api.getCoinById(coinId)
+    }
+
+    override suspend fun getCoinPrice(
+        baseCurrencyId: String,
+        quoteCurrencyId: String?,
+        amount: Int?
+    ): CoinPriceDto {
+        return api.getCoinPrice(baseCurrencyId, quoteCurrencyId ?: "", amount ?: 1)
     }
 }

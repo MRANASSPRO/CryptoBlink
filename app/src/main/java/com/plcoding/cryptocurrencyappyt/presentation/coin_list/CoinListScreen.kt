@@ -26,24 +26,37 @@ fun CoinListScreen(
     coinListViewModel: CoinListViewModel = hiltViewModel()
 ) {
 
-    val state = coinListViewModel.stateExposed.value
+    val coinListState = coinListViewModel.coinListStateExposed.value
+    //val coinPriceState = coinPriceViewModel.coinPriceStateExposed.value
+
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(state.coins) { coin ->
-                CoinListItem(coin = coin,
+            items(coinListState.coins) { coin ->
+                CoinListItem(
+                    coin = coin,
+                    coinPrice = null,
+                    /*try {
+                        coin.id?.let {
+                            coinPriceViewModel.getCorrespondingCoinPrice(it)
+                        }
+                        coinPriceState.coinPrice
+                    } catch (e: UnknownError) {
+                        Timber.d("coinPriceState error")
+                        coinPriceState.coinPrice
+                    },*/
                     onItemClick = {
                         Timber.d("COIN_ID: ${coin.id}")
                         navController.navigate(
                             Screen.CoinDetailScreen.route + "/${coin.id}"
                         )
-                    }
+                    },
                 )
             }
         }
         //for the error text
-        if (state.error.isNotBlank()) {
+        if (coinListState.error.isNotBlank()) {
             Text(
-                text = state.error,
+                text = coinListState.error,
                 color = MaterialTheme.colors.error,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -54,7 +67,7 @@ fun CoinListScreen(
         }
 
         //show a progress bar
-        if (state.isLoading) {
+        if (coinListState.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(
                     Alignment.Center

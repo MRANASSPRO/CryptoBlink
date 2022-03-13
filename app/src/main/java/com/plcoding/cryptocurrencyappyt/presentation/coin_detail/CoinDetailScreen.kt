@@ -17,17 +17,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.flowlayout.FlowRow
+import com.plcoding.cryptocurrencyappyt.common.Utils.round
 import com.plcoding.cryptocurrencyappyt.presentation.coin_detail.components.CoinTag
 import com.plcoding.cryptocurrencyappyt.presentation.coin_detail.components.TeamListItem
 
 @Composable
 fun CoinDetailScreen(
-    coinDetailViewModel: CoinDetailViewModel = hiltViewModel()
+    coinDetailViewModel: CoinDetailViewModel = hiltViewModel(),
 ) {
 
-    val state = coinDetailViewModel.stateExposed.value
+    val coinDetailState = coinDetailViewModel.stateExposed.value
+    val coinPriceState = coinDetailViewModel.coinPriceStateExposed.value
+
     Box(modifier = Modifier.fillMaxSize()) {
-        state.coin?.let { coinDetail ->
+        coinDetailState.coin?.let { coinDetail ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(20.dp)
@@ -41,23 +44,26 @@ fun CoinDetailScreen(
                         Text(
                             text = "${coinDetail.rank}. ${coinDetail.name} (${coinDetail.symbol})",
                             style = MaterialTheme.typography.h2,
-                            modifier = Modifier.weight(8f) //avoid overlapping on active text
+                            modifier = Modifier.weight(7f) //avoid overlapping on active text
                         )
 
                         Text(
-                            text = if (coinDetail.isActive) "active" else "inactive",
-                            color = if (coinDetail.isActive) Color.Green else Color.Red,
+                            text = if (coinPriceState.coinPrice?.baseCurrencyId == "usd-us-dollars") "$".plus(
+                                coinPriceState.coinPrice.price?.round(2)
+                            )
+                            else "$".plus(coinPriceState.coinPrice?.price?.round(2)),
+                            color = if (coinDetail.isActive == true) Color.Green else Color.Red,
                             fontStyle = FontStyle.Italic,
                             textAlign = TextAlign.End,
                             modifier = Modifier
                                 .align(CenterVertically)
-                                .weight(2f)
+                                .weight(3f)
                         )
                     }
                     Spacer(modifier = Modifier.height(15.dp))
                     //description section
                     Text(
-                        text = coinDetail.description,
+                        text = coinDetail.description ?: "",
                         style = MaterialTheme.typography.body2
                     )
                     Spacer(modifier = Modifier.height(15.dp))
@@ -72,7 +78,7 @@ fun CoinDetailScreen(
                         crossAxisSpacing = 10.dp,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        coinDetail.tags.forEach { coinTag ->
+                        coinDetail.tags?.forEach { coinTag ->
                             CoinTag(tag = coinTag)
                         }
                     }
@@ -83,22 +89,24 @@ fun CoinDetailScreen(
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                 }
-                items(coinDetail.team) { teamMember ->
-                    TeamListItem(
-                        teamMember = teamMember,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(10.dp)
-                    )
-                    Divider()
+                coinDetail.team?.let { teamNotNull ->
+                    items(teamNotNull) { teamMember ->
+                        TeamListItem(
+                            teamMember = teamMember,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(10.dp)
+                        )
+                        Divider()
+                    }
                 }
             }
         }
 
         //for the error text
-        if (state.error.isNotBlank()) {
+        if (coinDetailState.error.isNotBlank()) {
             Text(
-                text = state.error,
+                text = coinDetailState.error,
                 color = MaterialTheme.colors.error,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -109,7 +117,7 @@ fun CoinDetailScreen(
         }
 
         //show a progress bar
-        if (state.isLoading) {
+        if (coinDetailState.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(
                     Alignment.Center

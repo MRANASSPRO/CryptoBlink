@@ -16,10 +16,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.plcoding.cryptocurrencyappyt.domain.model.Coin
+import com.plcoding.cryptocurrencyappyt.domain.model.CoinPrice
 
 @Composable
 fun CoinListItem(
     coin: Coin,
+    coinPrice: CoinPrice?,
     onItemClick: (Coin) -> Unit
 ) {
 
@@ -37,8 +39,8 @@ fun CoinListItem(
             overflow = TextOverflow.Ellipsis //cut text off it it's too long
         )
         Text(
-            text = if (coin.isActive) "Active" else "Inactive",
-            color = if (coin.isActive) Color.Green else Color.Red,
+            text = if (coin.isActive == true) "Active" else "Inactive",
+            color = if (coin.isActive == true) Color.Green else Color.Red,
             fontStyle = FontStyle.Italic,
             textAlign = TextAlign.End,
             style = MaterialTheme.typography.body2,
@@ -46,3 +48,13 @@ fun CoinListItem(
         )
     }
 }
+
+/*@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Composable
+private fun CoinListItemPreview() {
+    CoinListItem(
+        coin = Coin(rank = 1, name = "Bitcoin", symbol = "BTC"),
+        coinPrice = CoinPrice(baseCurrencyId = "btc-bitcoin", quoteCurrencyId = "usd-us-dollars"),
+        onItemClick = {}
+    )
+}*/
