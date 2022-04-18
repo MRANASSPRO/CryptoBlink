@@ -16,12 +16,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.plcoding.cryptocurrencyappyt.domain.model.Coin
-import com.plcoding.cryptocurrencyappyt.domain.model.CoinPrice
 
 @Composable
 fun CoinListItem(
     coin: Coin,
-    coinPrice: CoinPrice?,
     onItemClick: (Coin) -> Unit
 ) {
 

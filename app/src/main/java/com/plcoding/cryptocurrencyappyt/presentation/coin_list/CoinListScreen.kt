@@ -34,23 +34,12 @@ fun CoinListScreen(
             items(coinListState.coins) { coin ->
                 CoinListItem(
                     coin = coin,
-                    coinPrice = null,
-                    /*try {
-                        coin.id?.let {
-                            coinPriceViewModel.getCorrespondingCoinPrice(it)
-                        }
-                        coinPriceState.coinPrice
-                    } catch (e: UnknownError) {
-                        Timber.d("coinPriceState error")
-                        coinPriceState.coinPrice
-                    },*/
-                    onItemClick = {
-                        Timber.d("COIN_ID: ${coin.id}")
-                        navController.navigate(
-                            Screen.CoinDetailScreen.route + "/${coin.id}"
-                        )
-                    },
-                )
+                ) {
+                    Timber.d("COIN_ID: ${coin.id}")
+                    navController.navigate(
+                        Screen.CoinDetailScreen.route + "/${coin.id}"
+                    )
+                }
             }
         }
         //for the error text

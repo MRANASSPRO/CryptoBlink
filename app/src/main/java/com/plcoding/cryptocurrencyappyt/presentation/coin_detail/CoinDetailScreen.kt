@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.flowlayout.FlowRow
-import com.plcoding.cryptocurrencyappyt.common.Utils.round
+import com.plcoding.cryptocurrencyappyt.common.Utils.roundToTwoDigits
 import com.plcoding.cryptocurrencyappyt.presentation.coin_detail.components.CoinTag
 import com.plcoding.cryptocurrencyappyt.presentation.coin_detail.components.TeamListItem
 
@@ -49,9 +49,9 @@ fun CoinDetailScreen(
 
                         Text(
                             text = if (coinPriceState.coinPrice?.baseCurrencyId == "usd-us-dollars") "$".plus(
-                                coinPriceState.coinPrice.price?.round(2)
+                                coinPriceState.coinPrice.price?.let { roundToTwoDigits(it) }
                             )
-                            else "$".plus(coinPriceState.coinPrice?.price?.round(2)),
+                            else "$".plus(coinPriceState.coinPrice?.price?.let { roundToTwoDigits(it) }),
                             color = if (coinDetail.isActive == true) Color.Green else Color.Red,
                             fontStyle = FontStyle.Italic,
                             textAlign = TextAlign.End,
