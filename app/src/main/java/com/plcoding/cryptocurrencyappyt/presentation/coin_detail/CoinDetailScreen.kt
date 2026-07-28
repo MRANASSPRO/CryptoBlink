@@ -39,7 +39,8 @@ fun CoinDetailScreen(
                     //top section in the screen
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = CenterVertically
                     ) {
                         Text(
                             text = "${coinDetail.rank}. ${coinDetail.name} (${coinDetail.symbol})",
@@ -48,16 +49,13 @@ fun CoinDetailScreen(
                         )
 
                         Text(
-                            text = if (coinPriceState.coinPrice?.baseCurrencyId == "usd-us-dollars") "$".plus(
-                                coinPriceState.coinPrice.price?.let { roundToTwoDigits(it) }
-                            )
-                            else "$".plus(coinPriceState.coinPrice?.price?.let { roundToTwoDigits(it) }),
+                            text = coinPriceState.coinPrice?.price?.let { price ->
+                                "$${ roundToTwoDigits(price) }"
+                            } ?: "$0.00",
                             color = if (coinDetail.isActive == true) Color.Green else Color.Red,
                             fontStyle = FontStyle.Italic,
                             textAlign = TextAlign.End,
-                            modifier = Modifier
-                                .align(CenterVertically)
-                                .weight(3f)
+                            modifier = Modifier.weight(3f)
                         )
                     }
                     Spacer(modifier = Modifier.height(15.dp))
