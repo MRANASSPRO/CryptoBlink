@@ -2,6 +2,8 @@ package com.plcoding.cryptocurrencyappyt.common
 
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 object Utils {
 
@@ -12,7 +14,8 @@ object Utils {
     }*/
 
     fun roundToTwoDigits(double: Double): Double? {
-        val df = DecimalFormat("#.##")
+        // using this Locale because it's the API response format, primarly to avoid locale-dependent parsing issues
+        val df = DecimalFormat("#.##", DecimalFormatSymbols(Locale.US))
         df.roundingMode = RoundingMode.DOWN
         val roundOff = df.format(double)
         return try {
