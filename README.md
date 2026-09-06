@@ -76,7 +76,7 @@ GET /v1/price-converter?base_currency_id=btc-bitcoin&quote_currency_id=usd-us-do
 ## 📂 Project Structure
 
 ```
-app/src/main/java/com/plcoding/cryptocurrencyappyt/
+app/src/main/java/com/mranasspro/cryptoblink/
 ├── presentation/
 │   ├── coin_list/          # Cryptocurrency list screen
 │   └── coin_detail/        # Detailed coin information screen
