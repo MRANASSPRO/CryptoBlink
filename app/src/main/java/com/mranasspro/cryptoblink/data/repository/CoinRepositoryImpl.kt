@@ -7,23 +7,15 @@ import com.mranasspro.cryptoblink.data.remote.dto.CoinPriceDto
 import com.mranasspro.cryptoblink.domain.repository.CoinRepository
 import javax.inject.Inject
 
-class CoinRepositoryImpl @Inject constructor(
-    private val api: CoinPaprikaApi
-) : CoinRepository {
+class CoinRepositoryImpl @Inject constructor(private val api: CoinPaprikaApi) : CoinRepository {
 
-    override suspend fun getCoins(): List<CoinDto> {
-        return api.getCoins()
-    }
+    override suspend fun getCoins(): List<CoinDto> = api.getCoins()
 
-    override suspend fun getCoinById(coinId: String): CoinDetailDto {
-        return api.getCoinById(coinId)
-    }
+    override suspend fun getCoinById(coinId: String): CoinDetailDto = api.getCoinById(coinId)
 
     override suspend fun getCoinPrice(
         baseCurrencyId: String,
         quoteCurrencyId: String?,
-        amount: Int?
-    ): CoinPriceDto {
-        return api.getCoinPrice(baseCurrencyId, quoteCurrencyId ?: "", amount ?: 1)
-    }
+        amount: Int?,
+    ): CoinPriceDto = api.getCoinPrice(baseCurrencyId, quoteCurrencyId ?: "", amount ?: 1)
 }

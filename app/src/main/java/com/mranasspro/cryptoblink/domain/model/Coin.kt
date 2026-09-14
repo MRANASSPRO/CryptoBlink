@@ -5,5 +5,5 @@ data class Coin(
     val isActive: Boolean? = null,
     val name: String? = "",
     val rank: Int? = null,
-    val symbol: String? = ""
+    val symbol: String? = "",
 )

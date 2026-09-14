@@ -38,18 +38,16 @@ data class CoinDetailDto(
     val tags: List<Tag>?,
     val team: List<TeamMember>?,
     val type: String,
-    val whitepaper: Whitepaper
+    val whitepaper: Whitepaper,
 )
 
-fun CoinDetailDto.toCoinDetail(): CoinDetail {
-    return CoinDetail(
-        coinId = id,
-        name = name,
-        description = description,
-        symbol = symbol,
-        rank = rank,
-        isActive = isActive,
-        tags = tags?.map { it.name },
-        team = team
-    )
-}
+fun CoinDetailDto.toCoinDetail(): CoinDetail = CoinDetail(
+    coinId = id,
+    name = name,
+    description = description,
+    symbol = symbol,
+    rank = rank,
+    isActive = isActive,
+    tags = tags?.map { it.name },
+    team = team,
+)

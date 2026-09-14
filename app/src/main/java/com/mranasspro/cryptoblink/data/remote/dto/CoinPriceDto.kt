@@ -17,16 +17,14 @@ data class CoinPriceDto(
     @SerializedName("quote_currency_name")
     val quoteCurrencyName: String,
     @SerializedName("quote_price_last_updated")
-    val quotePriceLastUpdated: String
+    val quotePriceLastUpdated: String,
 )
 
-fun CoinPriceDto.toCoinPrice(): CoinPrice {
-    return CoinPrice(
-        amount = amount,
-        baseCurrencyId = baseCurrencyId,
-        baseCurrencyName = baseCurrencyName,
-        price = price,
-        quoteCurrencyId = quoteCurrencyId,
-        quoteCurrencyName = quoteCurrencyName
-    )
-}
+fun CoinPriceDto.toCoinPrice(): CoinPrice = CoinPrice(
+    amount = amount,
+    baseCurrencyId = baseCurrencyId,
+    baseCurrencyName = baseCurrencyName,
+    price = price,
+    quoteCurrencyId = quoteCurrencyId,
+    quoteCurrencyName = quoteCurrencyName,
+)

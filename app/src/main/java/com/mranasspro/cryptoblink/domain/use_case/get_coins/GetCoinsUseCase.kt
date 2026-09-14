@@ -4,17 +4,15 @@ import com.mranasspro.cryptoblink.common.Resource
 import com.mranasspro.cryptoblink.data.remote.dto.toCoin
 import com.mranasspro.cryptoblink.domain.model.Coin
 import com.mranasspro.cryptoblink.domain.repository.CoinRepository
+import java.io.IOException
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
-import java.io.IOException
-import javax.inject.Inject
 
-class GetCoinsUseCase @Inject constructor(
-    private val repository: CoinRepository
-) {
+class GetCoinsUseCase @Inject constructor(private val repository: CoinRepository) {
 
-    //we override the invoke operator to call this use case as a function
+    // we override the invoke operator to call this use case as a function
     operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
         try {
             emit(Resource.Loading<List<Coin>>())

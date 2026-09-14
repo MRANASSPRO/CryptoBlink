@@ -1,11 +1,11 @@
 package com.mranasspro.cryptoblink.common
 
 import com.mranasspro.cryptoblink.common.Utils.roundToTwoDigits
+import java.util.Locale
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import java.util.Locale
 
 class UtilsTest {
 

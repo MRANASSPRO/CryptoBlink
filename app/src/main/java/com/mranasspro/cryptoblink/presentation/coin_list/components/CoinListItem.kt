@@ -20,9 +20,8 @@ import com.mranasspro.cryptoblink.domain.model.Coin
 @Composable
 fun CoinListItem(
     coin: Coin,
-    onItemClick: (Coin) -> Unit
+    onItemClick: (Coin) -> Unit,
 ) {
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,11 +29,11 @@ fun CoinListItem(
             .padding(20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
 
-        ) {
+    ) {
         Text(
             text = "${coin.rank}. ${coin.name} (${coin.symbol})",
             style = MaterialTheme.typography.body1,
-            overflow = TextOverflow.Ellipsis //cut text off it it's too long
+            overflow = TextOverflow.Ellipsis, // cut text off it it's too long
         )
         Text(
             text = if (coin.isActive == true) "Active" else "Inactive",
@@ -42,7 +41,7 @@ fun CoinListItem(
             fontStyle = FontStyle.Italic,
             textAlign = TextAlign.End,
             style = MaterialTheme.typography.body2,
-            modifier = Modifier.align(CenterVertically)
+            modifier = Modifier.align(CenterVertically),
         )
     }
 }

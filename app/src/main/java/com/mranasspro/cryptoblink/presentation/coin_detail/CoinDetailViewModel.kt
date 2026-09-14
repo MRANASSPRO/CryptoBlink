@@ -11,16 +11,16 @@ import com.mranasspro.cryptoblink.domain.use_case.get_coin.GetCoinUseCase
 import com.mranasspro.cryptoblink.domain.use_case.get_coin_price.GetCoinPriceUseCase
 import com.mranasspro.cryptoblink.presentation.coin_price.CoinPriceState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
 
-//hiltvm shortcut for live template
+// hiltvm shortcut for live template
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
     private val getCoinDetailUseCase: GetCoinUseCase,
     private val getCoinPriceUseCase: GetCoinPriceUseCase,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val _state = mutableStateOf(CoinDetailState())
@@ -37,25 +37,25 @@ class CoinDetailViewModel @Inject constructor(
     }
 
     private fun getCoin(coinId: String) {
-        //call this class like a function since we override the operator function invoke
+        // call this class like a function since we override the operator function invoke
         getCoinDetailUseCase(coinId).onEach { resultResource ->
             when (resultResource) {
                 is Resource.Success -> {
                     _state.value = CoinDetailState(
-                        coin = resultResource.data
+                        coin = resultResource.data,
                     )
                 }
                 is Resource.Error -> {
                     _state.value = CoinDetailState(
                         error = resultResource.message
-                            ?: "An unexpected error occurred"
+                            ?: "An unexpected error occurred",
                     )
                 }
                 is Resource.Loading -> {
                     _state.value = CoinDetailState(isLoading = true)
                 }
             }
-        }.launchIn(viewModelScope) //launch the flow in a coroutine since flow is async
+        }.launchIn(viewModelScope) // launch the flow in a coroutine since flow is async
     }
 
     private fun getCorrespondingCoinPrice(baseCurrencyId: String) {
@@ -63,13 +63,13 @@ class CoinDetailViewModel @Inject constructor(
             when (resultResource) {
                 is Resource.Success -> {
                     _coinPriceState.value = CoinPriceState(
-                        coinPrice = resultResource.data
+                        coinPrice = resultResource.data,
                     )
                 }
                 is Resource.Error -> {
                     _coinPriceState.value = CoinPriceState(
                         error = resultResource.message
-                            ?: "An unexpected error occurred"
+                            ?: "An unexpected error occurred",
                     )
                 }
                 is Resource.Loading -> {
@@ -77,6 +77,6 @@ class CoinDetailViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
-        //Timber.d("baseCurrencyId $$baseCurrencyId")
+        // Timber.d("baseCurrencyId $$baseCurrencyId")
     }
 }

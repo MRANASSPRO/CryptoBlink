@@ -2,8 +2,4 @@ package com.mranasspro.cryptoblink.presentation.coin_list
 
 import com.mranasspro.cryptoblink.domain.model.Coin
 
-data class CoinListState(
-    val isLoading: Boolean = false,
-    val coins: List<Coin> = emptyList(),
-    val error: String = ""
-)
+data class CoinListState(val isLoading: Boolean = false, val coins: List<Coin> = emptyList(), val error: String = "")

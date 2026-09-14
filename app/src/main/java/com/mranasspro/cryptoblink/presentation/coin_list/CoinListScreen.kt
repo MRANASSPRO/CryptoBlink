@@ -20,16 +20,15 @@ import timber.log.Timber
 @Composable
 fun CoinListScreen(
     navController: NavController,
-    coinListViewModel: CoinListViewModel = hiltViewModel()
+    coinListViewModel: CoinListViewModel = hiltViewModel(),
 ) {
-
     val coinListState = coinListViewModel.coinListStateExposed.value
-    //val coinPriceState = coinPriceViewModel.coinPriceStateExposed.value
+    // val coinPriceState = coinPriceViewModel.coinPriceStateExposed.value
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
+            .systemBarsPadding(),
     ) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(coinListState.coins) { coin ->
@@ -38,12 +37,12 @@ fun CoinListScreen(
                 ) {
                     Timber.d("COIN_ID: ${coin.id}")
                     navController.navigate(
-                        Screen.CoinDetailScreen.route + "/${coin.id}"
+                        Screen.CoinDetailScreen.route + "/${coin.id}",
                     )
                 }
             }
         }
-        //for the error text
+        // for the error text
         if (coinListState.error.isNotBlank()) {
             Text(
                 text = coinListState.error,
@@ -52,16 +51,16 @@ fun CoinListScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
+                    .align(Alignment.Center),
             )
         }
 
-        //show a progress bar
+        // show a progress bar
         if (coinListState.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(
-                    Alignment.Center
-                )
+                    Alignment.Center,
+                ),
             )
         }
     }

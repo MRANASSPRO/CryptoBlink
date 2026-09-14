@@ -15,22 +15,21 @@ import com.mranasspro.cryptoblink.data.remote.dto.TeamMember
 @Composable
 fun TeamListItem(
     teamMember: TeamMember,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Text(
             text = teamMember.name,
-            style = MaterialTheme.typography.h4
+            style = MaterialTheme.typography.h4,
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = teamMember.position,
             style = MaterialTheme.typography.body2,
-            fontStyle = FontStyle.Italic
+            fontStyle = FontStyle.Italic,
         )
     }
-
 }

@@ -13,22 +13,22 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CoinTag(
-    tag: String
+    tag: String,
 ) {
     Box(
         modifier = Modifier
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colors.primary,
-                shape = RoundedCornerShape(100.dp)
+                shape = RoundedCornerShape(100.dp),
             )
-            .padding(10.dp)
+            .padding(10.dp),
     ) {
         Text(
             text = tag,
             color = MaterialTheme.colors.primary,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.body2,
         )
     }
 }
