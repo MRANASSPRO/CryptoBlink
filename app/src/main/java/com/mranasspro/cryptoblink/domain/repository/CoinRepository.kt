@@ -10,5 +10,9 @@ interface CoinRepository {
 
     suspend fun getCoinById(coinId: String): CoinDetailDto
 
-    suspend fun getCoinPrice(baseCurrencyId: String, quoteCurrencyId: String? = "usd-us-dollars", amount: Int? = 1): CoinPriceDto
+    suspend fun getCoinPrice(
+        baseCurrencyId: String,
+        quoteCurrencyId: String? = "usd-us-dollars",
+        amount: Int? = 1,
+    ): CoinPriceDto
 }

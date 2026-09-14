@@ -14,9 +14,8 @@ import kotlinx.coroutines.flow.onEach
 @HiltViewModel
 class CoinListViewModel @Inject constructor(private val getCoinsUseCase: GetCoinsUseCase) : ViewModel() {
 
-    // vmstate shortcut for live template
-    private val _coinListstate = mutableStateOf(CoinListState())
-    val coinListStateExposed: State<CoinListState> = _coinListstate
+    private val _coinListState = mutableStateOf(CoinListState())
+    val coinListStateExposed: State<CoinListState> = _coinListState
 
     init {
         getCoins()
@@ -27,21 +26,21 @@ class CoinListViewModel @Inject constructor(private val getCoinsUseCase: GetCoin
         getCoinsUseCase().onEach { resultResource ->
             when (resultResource) {
                 is Resource.Success -> {
-                    _coinListstate.value = CoinListState(
+                    _coinListState.value = CoinListState(
                         coins = resultResource.data
                             ?: emptyList(),
                     )
-                    _coinListstate.value.coins.onEach { singleCoin ->
+                    _coinListState.value.coins.onEach { singleCoin ->
                     }
                 }
                 is Resource.Error -> {
-                    _coinListstate.value = CoinListState(
+                    _coinListState.value = CoinListState(
                         error = resultResource.message
                             ?: "An unexpected error occurred",
                     )
                 }
                 is Resource.Loading -> {
-                    _coinListstate.value = CoinListState(isLoading = true)
+                    _coinListState.value = CoinListState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope) // launch the flow in a coroutine since flow is async

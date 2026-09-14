@@ -27,6 +27,8 @@ ktlint_function_naming_ignore_when_annotated_with = Composable, Test, Parameteri
 # Leave function signatures laid out as written. Without this, ktlint collapses
 # multi-line composable parameter lists onto one line whenever they fit.
 ktlint_standard_function-signature = disabled
+ktlint_standard_package-name = disabled
+ktlint_standard_backing-property-naming = disabled
 
 [*.{yml,yaml,json,xml}]
 indent_size = 2

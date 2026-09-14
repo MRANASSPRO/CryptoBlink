@@ -23,8 +23,8 @@ class CoinDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(CoinDetailState())
-    val stateExposed: State<CoinDetailState> = _state
+    private val _coinDetailState = mutableStateOf(CoinDetailState())
+    val stateExposed: State<CoinDetailState> = _coinDetailState
 
     private val _coinPriceState = mutableStateOf(CoinPriceState())
     val coinPriceStateExposed: State<CoinPriceState> = _coinPriceState
@@ -41,18 +41,18 @@ class CoinDetailViewModel @Inject constructor(
         getCoinDetailUseCase(coinId).onEach { resultResource ->
             when (resultResource) {
                 is Resource.Success -> {
-                    _state.value = CoinDetailState(
+                    _coinDetailState.value = CoinDetailState(
                         coin = resultResource.data,
                     )
                 }
                 is Resource.Error -> {
-                    _state.value = CoinDetailState(
+                    _coinDetailState.value = CoinDetailState(
                         error = resultResource.message
                             ?: "An unexpected error occurred",
                     )
                 }
                 is Resource.Loading -> {
-                    _state.value = CoinDetailState(isLoading = true)
+                    _coinDetailState.value = CoinDetailState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope) // launch the flow in a coroutine since flow is async

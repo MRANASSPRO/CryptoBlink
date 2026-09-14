@@ -23,9 +23,7 @@ private val LightColorPalette = lightColors(
 @Composable
 fun CryptoBlinkRootTheme(
     darkTheme: Boolean = true,
-    content:
-    @Composable()
-    () -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) {
         DarkColorPalette
